@@ -1,16 +1,16 @@
 import streamlit as st
 import os
-import openai
 from datetime import date
+from openai import OpenAI
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Create client
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 st.set_page_config(page_title="SmartCV AI", page_icon="🎓", layout="centered")
 
 # Sidebar
 st.sidebar.title("SmartCV AI")
 st.sidebar.markdown("AI Resume & Portfolio Builder")
-st.sidebar.markdown("---")
 st.sidebar.info("IBM Edunet Skills Internship Project")
 
 st.title("🎓 SmartCV – AI Resume & Portfolio Builder")
@@ -29,7 +29,7 @@ with st.form("resume_form"):
     submit = st.form_submit_button("🚀 Generate Resume using AI")
 
 if submit:
-    if not openai.api_key:
+    if not os.getenv("OPENAI_API_KEY"):
         st.error("API key not found. Set OPENAI_API_KEY environment variable.")
     else:
         prompt = f"""
@@ -42,13 +42,15 @@ Projects: {projects}
 Experience: {experience}
 Target Job Role: {role}
 
-Use clear section headings.
+Use clear section headings: Objective, Education, Skills, Projects, Experience.
 """
 
         with st.spinner("AI is generating your resume..."):
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": prompt}]
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
             )
 
             resume_text = response.choices[0].message.content
