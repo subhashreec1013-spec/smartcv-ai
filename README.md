@@ -1,28 +1,40 @@
-# SmartCV – AI Powered Resume & Portfolio Builder
+# 🎓 SmartCV – AI Powered Resume & Portfolio Builder
 
-SmartCV is an AI-based system that helps students generate professional resumes, cover letters, and portfolio websites automatically.
+SmartCV is an AI-based web application that automatically generates professional resumes and portfolio websites for students based on their academic and technical details.
 
-## Features
-- Resume generator
-- Portfolio website generator
-- Simple web interface
-- Fast and easy to use
+---
 
-## Technologies Used
-- Python
-- Streamlit
-- HTML
+## 🚀 Features
 
-## Problem Statement
-Students struggle to create professional resumes and portfolios due to lack of writing skills and industry knowledge. Generic templates fail to highlight individual strengths.
+- AI-generated professional resumes
+- Automatic portfolio website creation
+- Job-role based customization
+- Simple and clean user interface
+- Download resume and portfolio
+- Secure API key handling
 
-## Solution
-SmartCV uses AI techniques to generate personalized resumes and portfolios based on student information.
+---
 
-## How to Run
-pip install streamlit  
-streamlit run app.py
+## 🧠 Problem Statement
 
-## Author
-C. Subha Shree
-CSE – IBM Edunet Skills Internship
+Many students struggle to create professional resumes and portfolios due to lack of writing skills and understanding of industry standards. Generic templates often fail to highlight individual strengths, resulting in reduced job opportunities.
+
+---
+
+## 💡 Proposed Solution
+
+SmartCV uses Artificial Intelligence to analyze student information and generate structured, professional resumes and portfolios automatically, saving time and improving quality.
+
+---
+
+## 🛠 Technologies Used
+
+- Python  
+- Streamlit  
+- OpenAI API  
+- HTML  
+- GitHub  
+
+---
+
+## ⚙ Project Structure
