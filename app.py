@@ -3,17 +3,22 @@ import os
 import openai
 from datetime import date
 
-# Load API key from environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Page config
-st.set_page_config(page_title="SmartCV AI", layout="centered")
+st.set_page_config(page_title="SmartCV AI", page_icon="🎓", layout="centered")
+
+# Sidebar
+st.sidebar.title("SmartCV AI")
+st.sidebar.markdown("AI Resume & Portfolio Builder")
+st.sidebar.markdown("---")
+st.sidebar.info("IBM Edunet Skills Internship Project")
 
 st.title("🎓 SmartCV – AI Resume & Portfolio Builder")
-st.write("Generate professional resumes and portfolios using Artificial Intelligence")
+st.caption("Create professional resumes and portfolios using Artificial Intelligence")
 
-# Form
 with st.form("resume_form"):
+    st.subheader("Enter Your Details")
+
     name = st.text_input("Full Name")
     education = st.text_area("Education")
     skills = st.text_area("Skills")
@@ -21,15 +26,14 @@ with st.form("resume_form"):
     experience = st.text_area("Experience")
     role = st.text_input("Target Job Role")
 
-    submit = st.form_submit_button("🚀 Generate using AI")
+    submit = st.form_submit_button("🚀 Generate Resume using AI")
 
-# Generate Resume
 if submit:
     if not openai.api_key:
-        st.error("API key not found. Please set OPENAI_API_KEY environment variable.")
+        st.error("API key not found. Set OPENAI_API_KEY environment variable.")
     else:
         prompt = f"""
-Create a professional resume for the following candidate:
+Create a professional resume for:
 
 Name: {name}
 Education: {education}
@@ -38,8 +42,7 @@ Projects: {projects}
 Experience: {experience}
 Target Job Role: {role}
 
-Format it properly with clear sections:
-Objective, Education, Skills, Projects, Experience.
+Use clear section headings.
 """
 
         with st.spinner("AI is generating your resume..."):
@@ -52,28 +55,23 @@ Objective, Education, Skills, Projects, Experience.
 
         st.success("✅ Resume generated successfully!")
 
-        st.text_area("📄 Generated Resume", resume_text, height=350)
+        st.subheader("Generated Resume")
+        st.text_area("", resume_text, height=350)
 
-        st.download_button(
-            label="📥 Download Resume (TXT)",
-            data=resume_text,
-            file_name="resume.txt"
-        )
+        st.download_button("📥 Download Resume (TXT)", resume_text, "resume.txt")
 
-        # Portfolio HTML
         portfolio_html = f"""
         <html>
         <head><title>{name} Portfolio</title></head>
         <body>
             <h1>{name}</h1>
             <pre>{resume_text}</pre>
-            <p>Generated on: {date.today()}</p>
+            <p>Generated on {date.today()}</p>
         </body>
         </html>
         """
 
-        st.download_button(
-            label="🌐 Download Portfolio Website (HTML)",
-            data=portfolio_html,
-            file_name="portfolio.html"
-        )
+        st.download_button("🌐 Download Portfolio Website (HTML)", portfolio_html, "portfolio.html")
+
+st.markdown("---")
+st.caption("© 2026 SmartCV | AI Project for IBM Edunet Skills Internship")
