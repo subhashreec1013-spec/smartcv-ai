@@ -24,5 +24,5 @@ pip install streamlit
 streamlit run app.py
 
 ## Author
-M. Nanthini  
+C. Subha Shree
 CSE – IBM Edunet Skills Internship
