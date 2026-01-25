@@ -8,6 +8,7 @@ def generate_resume_html(data):
 
         return "".join([f"<li>{i.strip()}</li>" for i in items if i.strip()])
 
+    education_list = to_list(data["education"])
     skills_list = to_list(data["skills"])
     projects_list = to_list(data["projects"])
     experience_list = to_list(data["experience"])
@@ -66,7 +67,7 @@ li {{
 </div>
 
 <h2>Education</h2>
-<p>{data["education"]}</p>
+<ul>{education_list}</ul>
 
 <h2>Skills</h2>
 <ul>{skills_list}</ul>
