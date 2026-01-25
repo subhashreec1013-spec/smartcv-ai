@@ -55,7 +55,7 @@ smartcv-ai/
 ├── ats_analyzer.py        # ATS score calculation logic
 ├── resume_template.py     # Styled resume HTML generator
 ├── requirements.txt       # Python dependencies
-├── README.md              # Project documentation
+└── README.md              # Project documentation
 
 ## 🧪 How It Works
 
