@@ -1,36 +1,71 @@
 def calculate_ats_score(resume_text, job_role):
 
-    keywords = {
-        "AI Engineer": ["python", "machine learning", "deep learning", "nlp", "data", "api"],
-        "Software Developer": ["python", "java", "sql", "git", "api", "backend"],
-        "Data Analyst": ["python", "sql", "excel", "data analysis", "statistics", "visualization"]
+    resume_text = resume_text.lower()
+
+    ROLE_KEYWORDS = {
+        "ai engineer": [
+            "python", "machine learning", "ml", "deep learning", "dl",
+            "nlp", "sql", "tensorflow", "pytorch", "pandas", "numpy",
+            "scikit-learn", "flask", "streamlit", "git", "api", "data analysis"
+        ],
+
+        "software developer": [
+            "python", "java", "c++", "sql", "git", "api", "backend",
+            "frontend", "javascript", "html", "css", "database", "oop"
+        ],
+
+        "data analyst": [
+            "python", "sql", "excel", "power bi", "tableau", "statistics",
+            "data analysis", "pandas", "numpy", "visualization"
+        ]
     }
 
-    role_keywords = keywords.get(job_role, [])
+    role_key = job_role.lower()
+    required_skills = ROLE_KEYWORDS.get(role_key, [])
 
-    resume_lower = resume_text.lower()
-    match_count = 0
+    matched = []
+    missing = []
 
-    for word in role_keywords:
-        if word in resume_lower:
-            match_count += 1
+    for skill in required_skills:
+        if skill in resume_text:
+            matched.append(skill)
+        else:
+            missing.append(skill)
 
-    skill_score = (match_count / len(role_keywords)) * 100 if role_keywords else 50
+    total_skills = len(required_skills)
+    found_skills = len(matched)
 
-    length_score = min(len(resume_text) / 1000 * 20, 20)
+    # ---------- BASE SCORE ----------
+    if total_skills == 0:
+        score = 60
+    else:
+        score = int((found_skills / total_skills) * 70)
 
-    ats_score = int(skill_score * 0.7 + length_score)
+    # ---------- BONUS POINTS ----------
+    if "project" in resume_text:
+        score += 10
 
-    missing_skills = [w for w in role_keywords if w not in resume_lower]
+    if "experience" in resume_text or "intern" in resume_text:
+        score += 10
 
+    if len(resume_text) > 800:
+        score += 5
+
+    score = min(score, 95)
+
+    # ---------- SUGGESTIONS ----------
     suggestions = []
 
-    if ats_score < 60:
-        suggestions.append("Add more job-specific technical skills.")
-        suggestions.append("Include measurable project outcomes.")
-        suggestions.append("Use clear section headings.")
+    if missing:
+        suggestions.append("Add missing job-specific technical skills.")
 
-    if missing_skills:
-        suggestions.append("Consider adding these skills: " + ", ".join(missing_skills))
+    if "project" not in resume_text:
+        suggestions.append("Include relevant technical projects.")
 
-    return ats_score, missing_skills, suggestions
+    if "experience" not in resume_text and "intern" not in resume_text:
+        suggestions.append("Add internship or work experience section.")
+
+    if score < 70:
+        suggestions.append("Optimize resume keywords to improve ATS compatibility.")
+
+    return score, missing[:6], suggestions
