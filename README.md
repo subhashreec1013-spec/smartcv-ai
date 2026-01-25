@@ -48,7 +48,7 @@ This helps students create industry-ready resumes and portfolios effortlessly.
 - Basic NLP for ATS analysis  
 
 ## ⚙ Project Structure
-
+'''
 smartcv-ai/
 │
 ├── app.py                 # Main Streamlit application
@@ -56,7 +56,7 @@ smartcv-ai/
 ├── resume_template.py     # Styled resume HTML generator
 ├── requirements.txt       # Python dependencies
 └── README.md              # Project documentation
-
+'''
 ## 🧪 How It Works
 
 1. User enters education, skills, projects & experience  
